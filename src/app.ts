@@ -1,16 +1,20 @@
-import * as express from "express";
+import * as express from "express"
 import * as bodyParser from "body-parser"
-import * as batteryStats from "./controllers/batteryStats";
+import { BatteryStat } from "./controllers/batteryStats"
+import { Statuses } from "./domain/Statuses"
 
 
-const app = express();
+const statuses = new Statuses()
+const batteryStats = new BatteryStat(statuses)
+
+const app = express()
 
 app.use(bodyParser.json())
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-app.get("/stats", batteryStats.getStat);
-app.post("/stats", batteryStats.postStat);
+    res.send("Hello World!")
+})
+app.get("/stats", batteryStats.getStat)
+app.post("/stats", batteryStats.postStat)
 
-export default app;
+export default app
