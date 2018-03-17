@@ -1,7 +1,14 @@
 import app from "./app"
+import * as dotenv from "dotenv"
 
-const server = app.listen(3000, () => {
-    console.log("App is running at http://localhost:3000")
+dotenv.config()
+
+const env = {
+    PORT: process.env.PORT
+}
+
+const server = app.listen(env.PORT, () => {
+    console.log("App is running at http://localhost:" + env.PORT)
 })
 
 export default server

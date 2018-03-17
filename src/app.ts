@@ -1,7 +1,7 @@
 import * as express from "express"
 import * as bodyParser from "body-parser"
 import { BatteryStat } from "./controllers/batteryStats"
-import { Statuses } from "./domain/Statuses"
+import { Statuses } from "./domain/statuses"
 import { Users } from "./domain/users"
 
 

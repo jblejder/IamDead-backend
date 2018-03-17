@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Statuses, Status } from "../domain/Statuses"
+import { Statuses, Status } from "../domain/statuses"
 import { Users } from "../domain/users";
 
 
@@ -29,8 +29,8 @@ class BatteryStat {
             return
         }
 
-        const stat = req.body.battery
-        const dateRaw = req.body.date
+        const stat: number = req.body.battery
+        const dateRaw: string = req.body.date
         if(stat == undefined || dateRaw == undefined) {
             console.log("no stat provided")
             res.status(400)
