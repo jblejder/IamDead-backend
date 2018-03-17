@@ -2,10 +2,12 @@
 class Status {
     userId: string
     battery: number
+    date: Date
 
-    constructor(userId: string, battery: number) {
+    constructor(userId: string, battery: number, date: Date) {
         this.userId = userId
         this.battery = battery
+        this.date = date
     }
 }
 

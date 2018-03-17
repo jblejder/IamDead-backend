@@ -2,10 +2,12 @@ import * as express from "express"
 import * as bodyParser from "body-parser"
 import { BatteryStat } from "./controllers/batteryStats"
 import { Statuses } from "./domain/Statuses"
+import { Users } from "./domain/users"
 
 
 const statuses = new Statuses()
-const batteryStats = new BatteryStat(statuses)
+const users = new Users()
+const batteryStats = new BatteryStat(statuses, users)
 
 const app = express()
 
