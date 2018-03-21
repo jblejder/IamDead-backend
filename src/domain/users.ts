@@ -1,4 +1,4 @@
-import * as uuid from "uuid"
+import * as uuid from 'uuid'
 
 export class User {
     id: string
@@ -21,10 +21,10 @@ export class Users {
     get(id: string): User {
         const found = this.users.find((user) => user.id == id )
         if(found != undefined) {
-            console.log("user exists")
+            console.log('user exists')
             return found
         }
-        console.log("created new user")
+        console.log('created new user')
         const user = new User(id)
         this.users.push(user)
         return user

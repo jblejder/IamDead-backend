@@ -1,5 +1,6 @@
-import app from "./app"
-import * as dotenv from "dotenv"
+import * as dotenv from 'dotenv'
+import { NestFactory } from '@nestjs/core';
+import { ApplicationModule } from './app.module';
 
 dotenv.config()
 
@@ -7,8 +8,8 @@ const env = {
     PORT: process.env.PORT
 }
 
-const server = app.listen(env.PORT, () => {
-    console.log("App is running at http://localhost:" + env.PORT)
-})
-
-export default server
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  await app.listen(env.PORT);
+}
+bootstrap();
