@@ -1,7 +1,47 @@
 import { Request, Response } from 'express';
 import { Statuses, Status } from '../domain/statuses'
 import { Users } from '../domain/users';
+import { Controller, Get, Req, Post } from '@nestjs/common';
 
+@Controller('battery')
+export class BatteryController {
+
+    statuses = new Statuses()
+    users = new Users()
+    batteryStats = new BatteryStat(this.statuses, this.users)
+
+    constructor() {
+
+    }
+
+    @Get()
+    stats(@Req() req) {
+        const userId = req.query.id as string
+        console.log('get stat')
+        return this.statuses.all().filter((stat) => stat.userId == userId)
+    }
+
+    @Post()
+    postStat(@Req() req) {
+        const id = req.headers['id'] as string
+        const user = this.users.get(id)
+        if(user == undefined) {
+            console.log('user not exists')
+            throw "FAK"
+        }
+
+        const stat: number = req.body.battery
+        const dateRaw: string = req.body.date
+        if(stat == undefined || dateRaw == undefined) {
+            console.log('no stat provided')
+            throw "FAK2"
+        }
+
+        const arg = req.body
+        const status = new Status(user.id, stat, new Date(dateRaw))
+        this.statuses.add(status)
+    }
+}
 
 class BatteryStat {
 
