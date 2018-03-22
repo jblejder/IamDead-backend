@@ -1,10 +1,15 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { BatteryController } from './controllers/battery.controller'
+import { Module, NestModule } from '@nestjs/common'
+import { MiddlewaresConsumer } from '@nestjs/common/interfaces'
+import { AppController } from './app.controller'
+import { AuthenticationMiddleware } from './authentication.middleware'
 
 @Module({
   imports: [],
-  controllers: [AppController, BatteryController],
+  controllers: [AppController],
   components: [],
 })
-export class ApplicationModule {}
+export class ApplicationModule implements NestModule {
+  configure(consumer: MiddlewaresConsumer) {
+    consumer.apply(AuthenticationMiddleware).forRoutes(AppController)
+  }
+}
